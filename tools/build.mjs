@@ -43,6 +43,8 @@ function build() {
   const site = readJSON(join(SRC, "data/site.json"));
   const credits = Object.fromEntries(readJSON(join(SRC, "data/credits.json")).map((c) => [c.slug, c]));
   const captions = readJSON(join(SRC, "data/captions.json"));
+  // Textes alternatifs : alt explicite de la page, sinon alt descriptif centralisé.
+  const alts = readJSON(join(SRC, "data/alts.json"));
   const layout = readFileSync(join(SRC, "layout.html"), "utf8");
   const partials = Object.fromEntries(
     readdirSync(join(SRC, "partials")).map((f) => [f.replace(/\.html$/, ""), readFileSync(join(SRC, "partials", f), "utf8")])
@@ -62,8 +64,10 @@ function build() {
   const imgTag = (a) => {
     const c = credits[a.slug];
     if (!c) throw new Error(`Photo inconnue : ${a.slug}`);
+    const alt = (typeof a.alt === "string" && a.alt.trim()) || alts[a.slug];
+    if (!alt) throw new Error(`Texte alternatif manquant pour ${a.slug} (src/data/alts.json)`);
     const base = `/assets/img/photos/${a.slug}`;
-    return `<img src="${base}-1600.webp" srcset="${base}-800.webp 800w, ${base}-1600.webp 1600w" sizes="${a.sizes || "(min-width: 1024px) 50vw, 100vw"}" width="${c.w}" height="${c.h}" alt="${esc(a.alt ?? "")}" ${a.eager ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"'} decoding="async" class="${a.class || "h-full w-full object-cover"}">`;
+    return `<img src="${base}-1600.webp" srcset="${base}-800.webp 800w, ${base}-1600.webp 1600w" sizes="${a.sizes || "(min-width: 1024px) 50vw, 100vw"}" width="${c.w}" height="${c.h}" alt="${esc(alt)}" ${a.eager ? 'fetchpriority="high" loading="eager"' : 'loading="lazy"'} decoding="async" class="${a.class || "h-full w-full object-cover"}">`;
   };
 
   const caption = (slug) => {
@@ -99,6 +103,7 @@ function build() {
       path,
       canonical: site.url.replace(/\/$/, "") + (path === "/" ? "/" : path),
       ogimage: site.url.replace(/\/$/, "") + `/assets/img/photos/${meta.ogphoto || "soupiere-roettiers"}-1600.webp`,
+      ogalt: alts[meta.ogphoto || "soupiere-roettiers"] || "",
       robots: meta.noindex ? "noindex, follow" : "index, follow",
       source: meta.source || (path === "/" ? "accueil" : path.slice(1).replace(/\//g, "-")),
     };
@@ -166,13 +171,13 @@ function build() {
       .replace(/\{\{img ([^}]+)\}\}/g, (_, a) => imgTag(attrs(a)))
       .replace(/\{\{figure ([^}]+)\}\}/g, (_, s) => {
         const a = attrs(s);
-        return `<figure class="${a.class || ""}"><div class="photo-frame ${a.frame || "aspect-[4/5]"}">${imgTag({ ...a, alt: a.alt || captions[a.slug] || "", class: a.imgclass })}</div><figcaption class="mt-3 text-[0.8rem] leading-snug text-ink-2">${caption(a.slug)}</figcaption></figure>`;
+        return `<figure class="${a.class || ""}"><div class="photo-frame ${a.frame || "aspect-[4/5]"}">${imgTag({ ...a, class: a.imgclass })}</div><figcaption class="mt-3 text-[0.8rem] leading-snug text-ink-2">${caption(a.slug)}</figcaption></figure>`;
       })
       .replace("{{credits-list}}", () =>
         Object.values(credits)
           .map(
             (c) =>
-              `<li class="grid grid-cols-[4.5rem_1fr] items-start gap-4 border-b border-line py-4"><img src="/assets/img/photos/${c.slug}-800.webp" alt="" width="72" height="72" loading="lazy" class="aspect-square h-[4.5rem] w-[4.5rem] rounded-[2px] object-cover"><div><p class="text-ink">${captions[c.slug] || c.title}</p><p class="mt-1 text-sm text-ink-2">${c.artist ? esc(c.artist) + ". " : ""}<a class="underline underline-offset-2" href="${c.url}" rel="noopener" target="_blank">${c.source}</a>. Licence : ${esc(c.license)}.</p></div></li>`
+              `<li class="grid grid-cols-[4.5rem_1fr] items-start gap-4 border-b border-line py-4"><img src="/assets/img/photos/${c.slug}-800.webp" alt="${esc(alts[c.slug] || "")}" width="72" height="72" loading="lazy" class="aspect-square h-[4.5rem] w-[4.5rem] rounded-[2px] object-cover"><div><p class="text-ink">${captions[c.slug] || c.title}</p><p class="mt-1 text-sm text-ink-2">${c.artist ? esc(c.artist) + ". " : ""}<a class="underline underline-offset-2" href="${c.url}" rel="noopener" target="_blank">${c.source}</a>. Licence : ${esc(c.license)}.</p></div></li>`
           )
           .join("")
       );
