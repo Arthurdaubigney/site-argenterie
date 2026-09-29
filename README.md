@@ -6,53 +6,63 @@ Objectif unique : générer des demandes d’estimation via un formulaire Tally.
 ## Structure
 
 ```
-index.html               Page unique (hero, objets, processus, pourquoi nous, formulaire, FAQ, footer)
-mentions-legales.html    À compléter
-confidentialite.html     À compléter
-assets/css/styles.css    CSS compilé (ne pas éditer à la main)
-assets/js/main.js        Tally, modale, FAQ, animations, barre CTA mobile
-assets/img/              Photos et favicon
-src/css/input.css        Source Tailwind v4 : couleurs, typographies, animations
-tools/inline-icons.mjs   Remplace les jetons [[ph:nom]] par des icônes Phosphor en SVG
+src/pages/               Une page = un fichier HTML (métadonnées en tête, dans <!--META {...} -->)
+  index.html             Accueil
+  estimation.html        Page de conversion principale (formulaire Tally)
+  vendre-son-argenterie.html, expertise.html, acquerir.html
+  objets/                Hub + ménagères, couverts de maître, orfèvrerie, métaux précieux, collection
+  guides/                Hub + poinçons, entretien, grandes maisons, succession
+  la-maison.html, faq.html, contact.html
+  mentions-legales.html, confidentialite.html, credits-photos.html, 404.html
+src/partials/            En-tête, pied de page, modale Tally, sections réutilisables
+src/layout.html          Gabarit commun
+src/data/site.json       Nom de la marque, domaine, e-mail (à personnaliser)
+src/data/credits.json    Sources et licences des photos (page Crédits générée automatiquement)
+src/data/captions.json   Légendes françaises des photos
+src/css/input.css        Tailwind v4 : couleurs, typographies, animations
+assets/js/main.js        Tally, modale, menus, FAQ, animations
+assets/img/photos/       47 photos libres de droit en WebP (800 et 1600 px)
+tools/build.mjs          Générateur : assemble les pages dans dist/
 ```
+
+### Syntaxe utile dans les pages
+
+- `{{> nom}}` insère un partiel de `src/partials/`
+- `{{img slug="soupiere-roettiers" alt="..." sizes="..."}}` image responsive
+- `{{figure slug="..." frame="aspect-[4/5]"}}` image + légende et source automatiques
+- `<faq-item q="Question">Réponse</faq-item>` question dépliable + données structurées Google
+- `[[ph:arrow-right]]` icône Phosphor
 
 ## Développement
 
 ```bash
 npm install
-npm run dev     # recompile le CSS à chaque modification
-npm run serve   # http://localhost:4173
-npm run build   # CSS minifié + dossier dist/ publié par Vercel
+npm run dev     # génère le site, surveille les fichiers et sert dist/ sur http://localhost:4173
+npm run build   # build de production dans dist/ (utilisé par Vercel)
 ```
 
-## Brancher le formulaire Tally
+## Brancher les formulaires Tally
 
-1. Dans Tally, récupérez l’identifiant du formulaire (`https://tally.so/r/XXXXXX`).
-2. Renseignez-le dans `assets/js/main.js` : `tallyFormId: "XXXXXX"`.
-3. Remplacez `VOTRE_ID_TALLY` dans le `<noscript>` de `index.html`.
-4. (Recommandé) Ajoutez dans Tally les champs cachés `source`, `utm_source`, `utm_medium` et `utm_campaign`
-   pour savoir quel bouton et quelle campagne ont converti.
+Dans `assets/js/main.js` :
 
-Tous les éléments `[data-tally-open]` ouvrent la modale. Si la section formulaire est déjà à l’écran,
-le clic y fait simplement défiler la page. Sans JavaScript, ce sont de simples liens vers `#estimation`.
+- `tallyFormId` : formulaire d’estimation (utilisé partout)
+- `forms.acquisition` et `forms.contact` : formulaires optionnels des pages Acquérir et Contact
+  (s’ils restent vides, le formulaire d’estimation est utilisé)
 
-## Photos à fournir (format webp)
+Ajoutez dans Tally les champs cachés `source`, `utm_source`, `utm_medium`, `utm_campaign` pour savoir
+quel bouton et quelle campagne ont converti.
 
-| Fichier | Format | Sujet |
-|---|---|---|
-| `hero-argenterie.webp` | 1600x2000 | Pièce d’argenterie mise en scène, fond sombre |
-| `menagere.webp` | 1600x1000 | Ménagère dans son écrin |
-| `orfevrerie.webp` | 1000x1200 | Théière ou verseuse en argent |
-| `collection.webp` | 1000x1200 | Boîte, tabatière ou objet de vitrine |
-| `expertise.webp` | 1200x1500 | Poinçon Minerve à la loupe ou mains d’expert |
-| `og-image.jpg` | 1200x630 | Image de partage sur les réseaux sociaux |
+## Photos
 
-Tant qu’une photo manque, un fond « argent brossé » la remplace.
+Toutes les photos sont libres de droit : The Metropolitan Museum of Art (CC0), The Cleveland Museum of Art (CC0)
+et Wikimedia Commons (CC0 ou CC BY / CC BY-SA, crédit obligatoire). Les sources et licences sont listées sur
+la page `/credits-photos`, générée depuis `src/data/credits.json` : conservez-la en ligne.
+Ces pièces illustrent le savoir-faire des orfèvres ; elles ne font pas partie des transactions de la maison.
 
 ## À personnaliser
 
-- Nom de marque « L’Argentier » (nom provisoire), domaine `votre-domaine.fr` et e-mail de contact.
-- Mentions légales et politique de confidentialité.
+- `src/data/site.json` : nom de la marque (« L’Argentier » est provisoire), domaine, e-mail.
+- Mentions légales et politique de confidentialité (champs entre crochets).
 
 ## Règle éditoriale
 
@@ -60,5 +70,4 @@ Ne jamais mentionner de délai ou de durée pour l’estimation (pas de « répo
 
 ## Déploiement Vercel
 
-`vercel.json` lance `npm run build` et publie le dossier `dist/`.
-La production Vercel publie la branche `main` : le site doit y être fusionné pour être en ligne.
+`vercel.json` lance `npm run build` et publie `dist/`. La production publie la branche `main`.

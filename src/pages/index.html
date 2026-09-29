@@ -1,0 +1,212 @@
+<!--META {
+  "title": "Estimation et rachat d’argenterie ancienne | L’Argentier",
+  "description": "Faites estimer votre argenterie ancienne par des experts : ménagères, couverts Christofle, Puiforcat, Ercuis, pièces d’orfèvrerie. Demande confidentielle et sans engagement.",
+  "nav": "accueil",
+  "source": "accueil",
+  "jsonld": {"@context": "https://schema.org", "@type": "Organization", "name": "L’Argentier", "url": "https://www.votre-domaine.fr", "description": "Expertise, estimation et rachat d’argenterie ancienne, de ménagères et d’orfèvrerie de maître."}
+} -->
+
+    <!-- HERO -->
+    <section class="relative flex min-h-[100dvh] flex-col pt-[72px]" aria-labelledby="hero-title">
+      <div class="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-4 py-10 sm:px-6 lg:grid-cols-12 lg:gap-14 lg:px-10">
+        <div class="t-stagger lg:col-span-7" data-reveal="load">
+          <p class="t-stagger-line mb-6 text-[0.8rem] font-medium uppercase tracking-[0.2em] text-ink-2" style="--i:0">Expertise en argenterie ancienne</p>
+          <h1 id="hero-title" class="t-stagger-line pb-2 text-[2.75rem] leading-[1.08] sm:text-6xl lg:text-[4.25rem]" style="--i:1">
+            Votre argenterie mérite un <em class="italic">regard d’expert.</em>
+          </h1>
+          <p class="t-stagger-line mt-6 max-w-[46ch] text-lg leading-relaxed text-ink-2" style="--i:2">
+            Ménagères, couverts de maître et pièces d’orfèvrerie&nbsp;: estimation et rachat par des spécialistes, en toute discrétion.
+          </p>
+          <div class="t-stagger-line mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8" style="--i:3">
+            <a href="/estimation" class="btn-primary w-full sm:w-auto" data-tally-open data-source="hero">
+              Faire estimer mon argenterie <span class="cta-arrow">[[ph:arrow-right]]</span>
+            </a>
+            <a href="#processus" class="btn-ghost">Comment ça marche</a>
+          </div>
+        </div>
+        <div class="t-stagger lg:col-span-5" data-reveal="load">
+          <div class="t-stagger-line photo-frame aspect-[5/4] lg:aspect-[5/6] lg:max-h-[calc(100dvh-72px-9rem)]" style="--i:2">
+            {{img slug="soupiere-roettiers" alt="Soupière couverte en argent de Jacques-Nicolas Roettiers, Paris, 1775" sizes="(min-width: 1024px) 40vw, 100vw" eager}}
+          </div>
+        </div>
+      </div>
+{{> reassurance}}
+    </section>
+
+    <!-- SERVICES -->
+    <section class="py-24 sm:py-32" aria-labelledby="services-title">
+      <div class="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
+        <div class="t-stagger lg:col-span-4" data-reveal>
+          <h2 id="services-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Une maison dédiée à l’argenterie</h2>
+          <p class="t-stagger-line mt-5 text-lg text-ink-2" style="--i:1">Que vous souhaitiez vendre, connaître la valeur d’un héritage ou acquérir une pièce, nous vous accompagnons avec la même exigence.</p>
+        </div>
+        <ul class="t-stagger border-t border-line lg:col-span-8" data-reveal>
+          <li class="t-stagger-line" style="--i:0">
+            <a href="/vendre-son-argenterie" class="group grid gap-3 border-b border-line py-9 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-10">
+              <div>
+                <h3 class="text-3xl sm:text-4xl">Vendre son argenterie</h3>
+                <p class="mt-2 max-w-[52ch] text-ink-2">Une proposition de rachat argumentée pour vos ménagères, couverts et pièces d’orfèvrerie, avec un règlement sécurisé.</p>
+              </div>
+              <span class="cta-arrow text-2xl text-ink-2 transition-colors group-hover:text-ink">[[ph:arrow-right]]</span>
+            </a>
+          </li>
+          <li class="t-stagger-line" style="--i:1">
+            <a href="/expertise" class="group grid gap-3 border-b border-line py-9 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-10">
+              <div>
+                <h3 class="text-3xl sm:text-4xl">Expertise et estimation</h3>
+                <p class="mt-2 max-w-[52ch] text-ink-2">Succession, partage, assurance ou simple curiosité&nbsp;: une estimation fondée sur l’identification précise de chaque pièce.</p>
+              </div>
+              <span class="cta-arrow text-2xl text-ink-2 transition-colors group-hover:text-ink">[[ph:arrow-right]]</span>
+            </a>
+          </li>
+          <li class="t-stagger-line" style="--i:2">
+            <a href="/acquerir" class="group grid gap-3 border-b border-line py-9 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-10">
+              <div>
+                <h3 class="text-3xl sm:text-4xl">Acquérir une pièce</h3>
+                <p class="mt-2 max-w-[52ch] text-ink-2">Compléter une ménagère, retrouver un modèle de couverts ou offrir une pièce signée&nbsp;: confiez-nous votre recherche.</p>
+              </div>
+              <span class="cta-arrow text-2xl text-ink-2 transition-colors group-hover:text-ink">[[ph:arrow-right]]</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- OBJETS -->
+    <section id="objets" class="border-t border-line py-24 sm:py-32" aria-labelledby="objets-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div class="t-stagger max-w-2xl" data-reveal>
+          <h2 id="objets-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Ce que nous estimons</h2>
+          <p class="t-stagger-line mt-5 text-lg text-ink-2" style="--i:1">De la ménagère familiale à la pièce signée, chaque objet est étudié avec la même exigence.</p>
+        </div>
+
+        <div class="t-stagger mt-14 grid gap-4 md:grid-cols-6" data-reveal>
+          <a href="/objets/menageres" class="object-card t-stagger-line group relative flex min-h-[24rem] flex-col justify-end overflow-hidden rounded-[2px] md:col-span-4" style="--i:0">
+            <div class="photo-frame absolute inset-0">{{img slug="menagere-ecrin-2" alt="" sizes="(min-width: 768px) 60vw, 100vw"}}</div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1013]/85 via-[#0d1013]/30 to-transparent"></div>
+            <div class="relative flex items-end justify-between gap-6 p-7 text-[#f3f4f6] sm:p-9">
+              <div><h3 class="text-3xl sm:text-4xl">Ménagères</h3><p class="mt-2 max-w-[44ch] text-[#d9dde2]">Complètes, en écrin ou dépareillées.</p></div>
+              <span class="cta-arrow text-2xl">[[ph:arrow-right]]</span>
+            </div>
+          </a>
+          <a href="/objets/couverts-de-maitre" class="t-stagger-line group flex flex-col justify-between rounded-[2px] bg-surface-2 p-7 sm:p-9 md:col-span-2" style="--i:1">
+            <span class="text-ink-2">[[ph:fork-knife]]</span>
+            <div class="mt-10">
+              <h3 class="text-3xl">Couverts de maître</h3>
+              <p class="mt-3 text-ink-2">Christofle, Puiforcat, Ercuis, Odiot, Cardeilhac et les grandes signatures de l’orfèvrerie de table.</p>
+              <span class="mt-6 inline-flex items-center gap-2 font-medium">Découvrir <span class="cta-arrow">[[ph:arrow-right]]</span></span>
+            </div>
+          </a>
+          <a href="/objets/orfevrerie" class="object-card t-stagger-line group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2px] md:col-span-2" style="--i:2">
+            <div class="photo-frame absolute inset-0">{{img slug="chocolatiere-germain" alt="" sizes="(min-width: 768px) 30vw, 100vw"}}</div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1013]/85 via-[#0d1013]/10 to-transparent"></div>
+            <div class="relative p-7 text-[#f3f4f6]"><h3 class="text-3xl">Pièces d’orfèvrerie</h3><p class="mt-2 text-[#d9dde2]">Services, soupières, plats, bougeoirs.</p></div>
+          </a>
+          <a href="/objets/metaux-precieux" class="object-card t-stagger-line group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2px] md:col-span-2" style="--i:3">
+            <div class="photo-frame absolute inset-0">{{img slug="verseuse-biennais-vermeil" alt="" sizes="(min-width: 768px) 30vw, 100vw"}}</div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1013]/85 via-[#0d1013]/10 to-transparent"></div>
+            <div class="relative p-7 text-[#f3f4f6]"><h3 class="text-3xl">Métaux précieux</h3><p class="mt-2 text-[#d9dde2]">Argent massif, vermeil, objets en or.</p></div>
+          </a>
+          <a href="/objets/objets-de-collection" class="object-card t-stagger-line group relative flex min-h-[22rem] flex-col justify-end overflow-hidden rounded-[2px] md:col-span-2" style="--i:4">
+            <div class="photo-frame absolute inset-0">{{img slug="necessaire-bardet" alt="" sizes="(min-width: 768px) 30vw, 100vw"}}</div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1013]/85 via-[#0d1013]/10 to-transparent"></div>
+            <div class="relative p-7 text-[#f3f4f6]"><h3 class="text-3xl">Objets de collection</h3><p class="mt-2 text-[#d9dde2]">Nécessaires, boîtes, timbales, pièces signées.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+{{> process}}
+
+    <!-- GRANDES MAISONS -->
+    <section class="py-24 sm:py-32" aria-labelledby="maisons-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div class="t-stagger mx-auto max-w-3xl text-center" data-reveal>
+          <h2 id="maisons-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Les grandes signatures de l’orfèvrerie</h2>
+          <p class="t-stagger-line mx-auto mt-5 max-w-[56ch] text-lg text-ink-2" style="--i:1">Nos experts connaissent les modèles, les poinçons et la cote des maisons qui ont fait l’histoire de l’art de la table.</p>
+        </div>
+        <ul class="t-stagger mt-14 flex flex-wrap items-baseline justify-center gap-x-10 gap-y-6 font-display text-3xl text-ink-2 sm:text-4xl" data-reveal aria-label="Maisons">
+          <li class="t-stagger-line" style="--i:0">Christofle</li>
+          <li class="t-stagger-line italic" style="--i:1">Puiforcat</li>
+          <li class="t-stagger-line" style="--i:2">Ercuis</li>
+          <li class="t-stagger-line italic" style="--i:3">Odiot</li>
+          <li class="t-stagger-line" style="--i:4">Cardeilhac</li>
+          <li class="t-stagger-line italic" style="--i:5">Boin-Taburet</li>
+          <li class="t-stagger-line" style="--i:6">Tétard Frères</li>
+          <li class="t-stagger-line italic" style="--i:7">Keller</li>
+        </ul>
+        <div class="mt-12 text-center"><a href="/guides/grandes-maisons" class="btn-ghost">Découvrir les grandes maisons <span class="cta-arrow">[[ph:arrow-right]]</span></a></div>
+      </div>
+    </section>
+
+    <!-- POURQUOI NOUS -->
+    <section id="pourquoi" class="border-t border-line py-24 sm:py-32" aria-labelledby="pourquoi-title">
+      <div class="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-20 lg:px-10">
+        <div class="t-stagger order-2 lg:order-1 lg:col-span-5" data-reveal>
+          <div class="t-stagger-line" style="--i:0">
+            {{figure slug="puiforcat-poincon-cremier" alt="Signature Jean E. Puiforcat et poinçons frappés sous un crémier en argent" frame="aspect-[4/5]" sizes="(min-width: 1024px) 40vw, 100vw"}}
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 lg:col-span-7">
+          <div class="t-stagger" data-reveal>
+            <h2 id="pourquoi-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Confier vos pièces à des connaisseurs</h2>
+            <p class="t-stagger-line mt-5 max-w-[50ch] text-lg text-ink-2" style="--i:1">L’argenterie raconte une histoire familiale. Nous la traitons avec le soin et la réserve qu’elle mérite.</p>
+          </div>
+          <dl class="t-stagger mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2" data-reveal>
+            <div class="t-stagger-line" style="--i:0"><dt class="flex items-center gap-3 text-lg font-medium"><span class="text-ink-2">[[ph:eye-slash]]</span>Discrétion absolue</dt><dd class="mt-2 text-ink-2">Aucune publication, aucun intermédiaire. Votre demande reste entre vous et nos experts.</dd></div>
+            <div class="t-stagger-line" style="--i:1"><dt class="flex items-center gap-3 text-lg font-medium"><span class="text-ink-2">[[ph:chart-line-up]]</span>Connaissance du marché</dt><dd class="mt-2 text-ink-2">Cours des métaux, cote des maisons et demande des collectionneurs&nbsp;: une estimation fondée sur la réalité du marché.</dd></div>
+            <div class="t-stagger-line" style="--i:2"><dt class="flex items-center gap-3 text-lg font-medium"><span class="text-ink-2">[[ph:chats-circle]]</span>Accompagnement personnalisé</dt><dd class="mt-2 text-ink-2">Un interlocuteur unique répond à vos questions et vous explique chaque élément de l’estimation.</dd></div>
+            <div class="t-stagger-line" style="--i:3"><dt class="flex items-center gap-3 text-lg font-medium"><span class="text-ink-2">[[ph:shield-check]]</span>Transaction sécurisée</dt><dd class="mt-2 text-ink-2">En cas d’achat, règlement par virement bancaire et document récapitulatif de la transaction.</dd></div>
+          </dl>
+          <a href="/la-maison" class="btn-ghost mt-10">Nos engagements <span class="cta-arrow">[[ph:arrow-right]]</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- GUIDES -->
+    <section class="border-t border-line bg-surface py-24 sm:py-32" aria-labelledby="guides-title">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div class="t-stagger max-w-2xl" data-reveal>
+          <h2 id="guides-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Mieux connaître son argenterie</h2>
+        </div>
+        <div class="t-stagger mt-14 grid gap-10 lg:grid-cols-12" data-reveal>
+          <a href="/guides/poincons-argent" class="t-stagger-line group lg:col-span-7" style="--i:0">
+            <div class="photo-frame aspect-[16/10]">{{img slug="fourchettes-poincons" alt="" class="h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-[1.03]" sizes="(min-width: 1024px) 55vw, 100vw"}}</div>
+            <h3 class="mt-6 text-3xl sm:text-4xl">Reconnaître l’argent massif grâce aux poinçons</h3>
+            <p class="mt-3 max-w-[56ch] text-ink-2">Minerve, titres, poinçon de maître, métal argenté&nbsp;: le guide pour lire les marques de vos pièces.</p>
+          </a>
+          <div class="grid gap-10 lg:col-span-5">
+            <a href="/guides/entretenir-argenterie" class="t-stagger-line group grid grid-cols-[8rem_1fr] items-start gap-6" style="--i:1">
+              <div class="photo-frame aspect-square">{{img slug="couverts-argent" alt="" sizes="8rem"}}</div>
+              <div><h3 class="text-2xl">Entretenir son argenterie</h3><p class="mt-2 text-ink-2">Les bons gestes pour préserver l’éclat et la valeur de vos pièces.</p></div>
+            </a>
+            <a href="/guides/grandes-maisons" class="t-stagger-line group grid grid-cols-[8rem_1fr] items-start gap-6" style="--i:2">
+              <div class="photo-frame aspect-square">{{img slug="puiforcat-service-the" alt="" sizes="8rem"}}</div>
+              <div><h3 class="text-2xl">Les grandes maisons françaises</h3><p class="mt-2 text-ink-2">Christofle, Puiforcat, Ercuis, Odiot&nbsp;: repères et signatures.</p></div>
+            </a>
+            <a href="/guides/argenterie-et-succession" class="t-stagger-line group grid grid-cols-[8rem_1fr] items-start gap-6" style="--i:3">
+              <div class="photo-frame aspect-square">{{img slug="menagere-ecrin" alt="" sizes="8rem"}}</div>
+              <div><h3 class="text-2xl">Argenterie et succession</h3><p class="mt-2 text-ink-2">Estimer, partager ou vendre l’argenterie reçue en héritage.</p></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{{> estimation-section}}
+
+    <!-- FAQ -->
+    <section class="py-24 sm:py-32" aria-labelledby="faq-title">
+      <div class="mx-auto max-w-3xl px-4 sm:px-6">
+        <div class="t-stagger text-center" data-reveal>
+          <h2 id="faq-title" class="t-stagger-line text-4xl leading-[1.1] sm:text-5xl" style="--i:0">Questions fréquentes</h2>
+        </div>
+        <div class="t-stagger mt-14 border-t border-line" data-reveal>
+          <faq-item q="Ma demande d’estimation m’engage-t-elle à vendre&nbsp;?"><p>Non. La proposition que vous recevez est sans engagement&nbsp;: vous restez entièrement libre de vendre, de conserver ou de transmettre vos pièces.</p></faq-item>
+          <faq-item q="Quelles photos dois-je joindre au formulaire&nbsp;?"><p>Une vue d’ensemble de vos pièces, un gros plan lisible des poinçons et, le cas échéant, des signatures ou marques de fabricant. Une lumière naturelle, sans flash, donne les meilleurs résultats.</p></faq-item>
+          <faq-item q="Estimez-vous les ménagères incomplètes ou abîmées&nbsp;?"><p>Oui. Ménagères dépareillées, pièces isolées, couverts usés ou objets endommagés&nbsp;: chaque pièce est étudiée, quel que soit son état.</p></faq-item>
+          <faq-item q="Mes informations et mes photos restent-elles confidentielles&nbsp;?"><p>Oui. Vos coordonnées et vos photos servent uniquement à l’étude de votre demande. Elles ne sont jamais publiées ni transmises à des tiers.</p></faq-item>
+        </div>
+        <div class="mt-12 text-center"><a href="/faq" class="btn-ghost">Toutes les questions <span class="cta-arrow">[[ph:arrow-right]]</span></a></div>
+      </div>
+    </section>

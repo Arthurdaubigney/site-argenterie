@@ -1,0 +1,18 @@
+  <dialog class="modal-root" aria-labelledby="modal-title" data-modal>
+    <div class="modal-veil fixed inset-0 bg-[#0d1013]/55 backdrop-blur-[3px]" data-modal-close></div>
+    <div class="pointer-events-none fixed inset-0 flex items-end justify-center sm:items-center sm:p-6">
+      <div class="t-modal relative flex max-h-[92dvh] w-full max-w-2xl flex-col overflow-hidden rounded-t-[2px] border border-line bg-surface sm:rounded-[2px]" data-modal-panel>
+        <div class="flex items-center justify-between gap-4 border-b border-line px-5 py-4 sm:px-8">
+          <h2 id="modal-title" class="text-2xl">Demande d’estimation</h2>
+          <button type="button" class="inline-flex h-11 w-11 items-center justify-center text-ink-2 hover:text-ink" data-modal-close>
+            <span class="sr-only">Fermer</span>
+            [[ph:x]]
+          </button>
+        </div>
+        <div class="overflow-y-auto px-5 py-6 sm:px-8">
+          <div data-tally-embed data-source="modal" data-lazy class="min-h-[480px]"></div>
+          <p class="mt-4 flex items-center gap-2 text-sm text-ink-2">[[ph:lock-key]] Demande confidentielle et sans engagement.</p>
+        </div>
+      </div>
+    </div>
+  </dialog>

@@ -1,0 +1,31 @@
+<!--META {
+  "title": "Contact | L’Argentier",
+  "description": "Contactez nos experts en argenterie ancienne : demande d’estimation, question sur une pièce, recherche d’un modèle. Réponse personnalisée et confidentielle.",
+  "nav": "contact",
+  "source": "page-contact",
+  "crumbs": [["Contact"]]
+} -->
+
+    <section class="pt-[calc(72px+3rem)] pb-24 sm:pt-[calc(72px+4.5rem)] sm:pb-32" aria-labelledby="page-title">
+      <div class="mx-auto grid max-w-7xl gap-14 px-4 sm:px-6 lg:grid-cols-12 lg:gap-16 lg:px-10">
+        <div class="t-stagger lg:col-span-5" data-reveal="load">
+          <div class="t-stagger-line" style="--i:0">{{breadcrumbs}}</div>
+          <h1 id="page-title" class="t-stagger-line mt-8 text-5xl leading-[1.05] sm:text-6xl" style="--i:1">Nous contacter</h1>
+          <p class="t-stagger-line mt-6 max-w-[48ch] text-lg text-ink-2" style="--i:2">Pour faire estimer vos pièces, le formulaire d’estimation reste le plus simple&nbsp;: il nous transmet directement vos photos.</p>
+          <div class="t-stagger-line mt-10 space-y-3" style="--i:3">
+            <a href="/estimation" class="btn-primary" data-tally-open data-source="contact">Faire estimer mon argenterie <span class="cta-arrow">[[ph:arrow-right]]</span></a>
+          </div>
+          <dl class="t-stagger-line mt-14 space-y-8 border-t border-line pt-10" style="--i:4">
+            <div class="flex gap-4"><span class="mt-1 text-ink-2">[[ph:envelope-simple]]</span><div><dt class="font-medium">Par e-mail</dt><dd class="mt-1"><a class="text-ink-2 underline underline-offset-2 hover:text-ink" href="mailto:{{site.email}}">{{site.email}}</a></dd></div></div>
+            <div class="flex gap-4"><span class="mt-1 text-ink-2">[[ph:lock-key]]</span><div><dt class="font-medium">Confidentialité</dt><dd class="mt-1 text-ink-2">Vos messages et vos photos ne sont jamais transmis à des tiers.</dd></div></div>
+          </dl>
+        </div>
+        <div class="lg:col-span-7">
+          <div class="rounded-[2px] border border-line bg-surface p-5 shadow-[0_30px_80px_-40px_hsl(var(--shadow-tint)/0.35)] sm:p-10">
+            <h2 class="text-3xl">Une question, une recherche&nbsp;?</h2>
+            <p class="mt-3 text-ink-2">Écrivez-nous, nous vous répondrons personnellement.</p>
+            <div data-tally-embed data-form="contact" data-source="page-contact" class="mt-8 min-h-[480px]"></div>
+          </div>
+        </div>
+      </div>
+    </section>

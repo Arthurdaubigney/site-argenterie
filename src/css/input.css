@@ -6,9 +6,10 @@
 /* source(none) : on déclare explicitement les fichiers à scanner pour ne pas
    embarquer les classes des dossiers .claude/ ou node_modules/. */
 @import "tailwindcss" source(none);
-@source "../../index.html";
-@source "../../mentions-legales.html";
-@source "../../confidentialite.html";
+@source "../pages";
+@source "../partials";
+@source "../layout.html";
+@source "../../tools/build.mjs";
 @source "../../assets/js";
 
 /* --------------------------------------------------------------------------
@@ -87,6 +88,7 @@
   --modal-close-dur: 150ms;
   --modal-scale: 0.96;
   --modal-scale-close: 0.96;
+  --scale-medium: 0.97;
   --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Accordion (21-accordion) */
@@ -210,6 +212,26 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  /* Cadre photo : fond neutre proche des fonds de studio des musées */
+  .photo-frame {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-ui);
+    background: #dcdfe2;
+  }
+
+  /* Texte long (guides, pages légales) */
+  .prose-silver { max-width: 68ch; color: var(--ink-2); font-size: 1.0625rem; line-height: 1.75; }
+  .prose-silver > * + * { margin-top: 1.25em; }
+  .prose-silver h2 { color: var(--ink); font-size: 2.1rem; line-height: 1.15; margin-top: 2.2em; }
+  .prose-silver h3 { color: var(--ink); font-family: var(--font-sans); font-size: 1.125rem; font-weight: 500; margin-top: 1.8em; }
+  .prose-silver strong { color: var(--ink); font-weight: 500; }
+  .prose-silver a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+  .prose-silver ul { list-style: none; padding: 0; }
+  .prose-silver ul > li { position: relative; padding-left: 1.4em; }
+  .prose-silver ul > li + li { margin-top: 0.6em; }
+  .prose-silver ul > li::before { content: ""; position: absolute; left: 0; top: 0.8em; width: 0.6em; height: 1px; background: currentColor; }
+
   /* Liens de navigation */
   .nav-link {
     position: relative;
@@ -217,7 +239,8 @@
     color: var(--ink-2);
     transition: color var(--duration-fast) var(--ease-smooth-out);
   }
-  .nav-link:hover { color: var(--ink); }
+  .nav-link:hover, .nav-link[aria-current="page"] { color: var(--ink); }
+  .nav-link[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 1px; }
 }
 
 /* --------------------------------------------------------------------------
@@ -340,6 +363,28 @@ dialog.modal-root::backdrop { background: transparent; }
   pointer-events: auto;
   transition-duration: var(--duration-fast);
 }
+/* Sous-menu « Objets » (dropdown simple, ouverture depuis le déclencheur) */
+.nav-dropdown {
+  opacity: 0;
+  transform: translateY(-4px) scale(var(--scale-medium, 0.97));
+  transform-origin: top left;
+  pointer-events: none;
+  visibility: hidden;
+  transition:
+    opacity var(--duration-quick) var(--ease-smooth-out),
+    transform var(--duration-quick) var(--ease-smooth-out),
+    visibility 0s linear var(--duration-quick);
+}
+.nav-dropdown.is-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  visibility: visible;
+  transition:
+    opacity var(--duration-fast) var(--ease-smooth-out),
+    transform var(--duration-fast) var(--ease-smooth-out),
+    visibility 0s;
+}
 .sticky-cta {
   transform: translateY(110%);
   transition: transform var(--duration-medium) var(--ease-smooth-out);
@@ -370,7 +415,7 @@ dialog.modal-root::backdrop { background: transparent; }
   .t-modal,
   .modal-veil,
   .t-acc-panel, .t-acc-panel-inner, .t-acc-chevron,
-  .mobile-menu, .sticky-cta, .site-header,
+  .mobile-menu, .nav-dropdown, .sticky-cta, .site-header,
   .object-card img, .cta-arrow, .btn-primary, .btn-ghost {
     transition: none !important;
   }
