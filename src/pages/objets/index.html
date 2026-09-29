@@ -1,0 +1,51 @@
+<!--META {
+  "title": "Objets estimés : ménagères, couverts de maître, orfèvrerie, vermeil | L’Argentier",
+  "description": "Ménagères, couverts de maître Christofle, Puiforcat, Ercuis, pièces d’orfèvrerie, argent massif, vermeil et objets de collection : découvrez tout ce que nos experts estiment.",
+  "nav": "objets",
+  "source": "page-objets",
+  "crumbs": [["Objets estimés"]]
+} -->
+
+    <section class="pt-[calc(72px+3rem)] sm:pt-[calc(72px+4.5rem)]" aria-labelledby="page-title">
+      <div class="t-stagger mx-auto max-w-7xl px-4 sm:px-6 lg:px-10" data-reveal="load">
+        <div class="t-stagger-line" style="--i:0">{{breadcrumbs}}</div>
+        <h1 id="page-title" class="t-stagger-line mt-8 max-w-4xl text-5xl leading-[1.05] sm:text-6xl" style="--i:1">Tout ce que nous estimons</h1>
+        <p class="t-stagger-line mt-6 max-w-[58ch] text-lg text-ink-2" style="--i:2">Argent massif, vermeil ou métal argenté des grandes maisons&nbsp;: de la cuillère isolée au service complet, chaque pièce est étudiée.</p>
+      </div>
+    </section>
+
+    <section class="py-16 sm:py-24" aria-label="Catégories d’objets">
+      <div class="mx-auto max-w-7xl space-y-4 px-4 sm:px-6 lg:px-10">
+        <a href="/objets/menageres" class="object-card group grid overflow-hidden rounded-[2px] border border-line bg-surface md:grid-cols-12">
+          <div class="photo-frame !rounded-none aspect-[16/10] md:col-span-7 md:aspect-auto md:min-h-[26rem]">{{img slug="menagere-ecrin-2" alt="Couverts à dessert rangés dans leur écrin" sizes="(min-width: 768px) 58vw, 100vw" eager}}</div>
+          <div class="flex flex-col justify-center p-8 sm:p-12 md:col-span-5">
+            <h2 class="text-4xl sm:text-5xl">Ménagères</h2>
+            <p class="mt-4 text-lg text-ink-2">Complètes ou dépareillées, en écrin, en coffre ou en vrac&nbsp;: couverts de table, à entremets, à poisson, à dessert et de service.</p>
+            <span class="mt-8 inline-flex items-center gap-2 font-medium">Découvrir <span class="cta-arrow">[[ph:arrow-right]]</span></span>
+          </div>
+        </a>
+        <div class="grid gap-4 md:grid-cols-2">
+          <a href="/objets/couverts-de-maitre" class="object-card group flex flex-col overflow-hidden rounded-[2px] border border-line bg-surface">
+            <div class="photo-frame !rounded-none aspect-[16/10]">{{img slug="fourchettes-lenhendrick-vermeil" alt="Couverts en vermeil de Louis-Joseph Lenhendrick" sizes="(min-width: 768px) 50vw, 100vw"}}</div>
+            <div class="p-8 sm:p-10"><h2 class="text-4xl">Couverts de maître</h2><p class="mt-3 text-ink-2">Christofle, Puiforcat, Ercuis, Odiot, Cardeilhac et les grands orfèvres.</p></div>
+          </a>
+          <a href="/objets/orfevrerie" class="object-card group flex flex-col overflow-hidden rounded-[2px] border border-line bg-surface">
+            <div class="photo-frame !rounded-none aspect-[16/10]">{{img slug="soupiere-roettiers-plateau" alt="Soupière et son plateau de Jacques-Nicolas Roettiers" sizes="(min-width: 768px) 50vw, 100vw"}}</div>
+            <div class="p-8 sm:p-10"><h2 class="text-4xl">Pièces d’orfèvrerie</h2><p class="mt-3 text-ink-2">Services à thé et à café, soupières, plats, saucières, bougeoirs, candélabres.</p></div>
+          </a>
+        </div>
+        <div class="grid gap-4 md:grid-cols-12">
+          <a href="/objets/metaux-precieux" class="object-card group grid overflow-hidden rounded-[2px] bg-accent text-on-accent sm:grid-cols-2 md:col-span-7">
+            <div class="flex flex-col justify-center p-8 sm:p-10"><h2 class="text-4xl">Métaux précieux</h2><p class="mt-3 opacity-80">Argent massif au premier et au second titre, vermeil, objets en or.</p><span class="mt-8 inline-flex items-center gap-2 font-medium">Découvrir <span class="cta-arrow">[[ph:arrow-right]]</span></span></div>
+            <div class="photo-frame !rounded-none aspect-square sm:aspect-auto">{{img slug="encrier-ladatte-vermeil" alt="Encrier en vermeil de Francesco Ladatte" sizes="(min-width: 768px) 30vw, 100vw"}}</div>
+          </a>
+          <a href="/objets/objets-de-collection" class="object-card group flex flex-col overflow-hidden rounded-[2px] border border-line bg-surface md:col-span-5">
+            <div class="photo-frame !rounded-none aspect-[16/10]">{{img slug="tabatiere-neuber" alt="Tabatière de Johann Christian Neuber" sizes="(min-width: 768px) 40vw, 100vw"}}</div>
+            <div class="p-8 sm:p-10"><h2 class="text-4xl">Objets de collection</h2><p class="mt-3 text-ink-2">Nécessaires, boîtes, tabatières, timbales et pièces signées.</p></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+{{> process}}
+{{> cta-band}}

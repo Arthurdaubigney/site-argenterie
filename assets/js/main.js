@@ -8,7 +8,13 @@
    Tant qu'il est vide, un encart de remplacement s'affiche à la place.
    -------------------------------------------------------------------------- */
 const CONFIG = {
+  // Formulaire principal : demande d'estimation (utilisé partout par défaut).
   tallyFormId: "",
+  // Formulaires optionnels. Laissés vides, ils retombent sur le formulaire principal.
+  forms: {
+    acquisition: "", // page /acquerir
+    contact: "", // page /contact
+  },
   // Options d'intégration Tally (voir https://tally.so/help/embed-your-form)
   tallyParams: {
     alignLeft: "1",
@@ -42,7 +48,9 @@ function loadTallyScript() {
   return tallyScriptPromise;
 }
 
-function tallyUrl(source) {
+const formIdFor = (slot) => CONFIG.forms[slot.dataset.form] || CONFIG.tallyFormId;
+
+function tallyUrl(formId, source) {
   const params = new URLSearchParams(CONFIG.tallyParams);
   // Champ caché Tally "source" : permet de savoir quel CTA a converti.
   if (source) params.set("source", source);
@@ -50,7 +58,7 @@ function tallyUrl(source) {
   new URLSearchParams(location.search).forEach((v, k) => {
     if (k.startsWith("utm_")) params.set(k, v);
   });
-  return `https://tally.so/embed/${CONFIG.tallyFormId}?${params}`;
+  return `https://tally.so/embed/${formId}?${params}`;
 }
 
 function renderPlaceholder(slot) {
@@ -65,13 +73,14 @@ function mountTally(slot) {
   if (slot.dataset.mounted) return;
   slot.dataset.mounted = "true";
 
-  if (!CONFIG.tallyFormId) {
+  const formId = formIdFor(slot);
+  if (!formId) {
     renderPlaceholder(slot);
     return;
   }
 
   const iframe = document.createElement("iframe");
-  iframe.dataset.tallySrc = tallyUrl(slot.dataset.source);
+  iframe.dataset.tallySrc = tallyUrl(formId, slot.dataset.source);
   iframe.title = "Formulaire de demande d’estimation";
   iframe.loading = "lazy";
   iframe.width = "100%";
@@ -165,12 +174,14 @@ function closeModal() {
 document.addEventListener("click", (e) => {
   const trigger = e.target.closest("[data-tally-open]");
   if (trigger) {
-    // Le formulaire est déjà visible à l'écran : on y fait simplement défiler.
+    // La page contient déjà le formulaire : on y fait défiler plutôt que d'ouvrir la modale.
     const section = document.getElementById("estimation");
-    const r = section?.getBoundingClientRect();
-    const sectionVisible = r && r.top < innerHeight * 0.5 && r.bottom > innerHeight * 0.5;
-    if (sectionVisible || !dialog) return;
+    if (!dialog) return;
     e.preventDefault();
+    if (section) {
+      section.scrollIntoView({ behavior: reduceMotion.matches ? "auto" : "smooth" });
+      return;
+    }
     lastTrigger = trigger;
     openModal(trigger.dataset.source);
     return;
@@ -228,7 +239,7 @@ const header = document.querySelector("[data-header]");
 const menu = document.querySelector("[data-menu]");
 const menuToggle = document.querySelector("[data-menu-toggle]");
 const stickyCta = document.querySelector("[data-sticky-cta]");
-const hero = document.querySelector("#contenu > section");
+const hero = document.querySelector("#contenu > section, #contenu > article");
 const formSection = document.getElementById("estimation");
 
 function setMenu(open) {
@@ -258,6 +269,25 @@ if ("IntersectionObserver" in window && hero) {
     }).observe(formSection);
   }
 }
+
+/* Sous-menu « Objets » (desktop) */
+document.querySelectorAll("[data-dropdown]").forEach((wrap) => {
+  const btn = wrap.querySelector("[data-dropdown-toggle]");
+  const panel = wrap.querySelector("[data-dropdown-menu]");
+  const set = (open) => {
+    panel.classList.toggle("is-open", open);
+    btn.setAttribute("aria-expanded", String(open));
+  };
+  btn.addEventListener("click", () => set(!panel.classList.contains("is-open")));
+  document.addEventListener("click", (e) => !wrap.contains(e.target) && set(false));
+  wrap.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && panel.classList.contains("is-open")) {
+      set(false);
+      btn.focus();
+    }
+  });
+  wrap.addEventListener("focusout", (e) => !wrap.contains(e.relatedTarget) && set(false));
+});
 
 /* Année du pied de page */
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
