@@ -22,7 +22,7 @@ tools/inline-icons.mjs   Remplace les jetons [[ph:nom]] par des icônes Phosphor
 npm install
 npm run dev     # recompile le CSS à chaque modification
 npm run serve   # http://localhost:4173
-npm run build   # CSS minifié pour la production
+npm run build   # CSS minifié + dossier dist/ publié par Vercel
 ```
 
 ## Brancher le formulaire Tally
@@ -57,3 +57,8 @@ Tant qu’une photo manque, un fond « argent brossé » la remplace.
 ## Règle éditoriale
 
 Ne jamais mentionner de délai ou de durée pour l’estimation (pas de « réponse sous 24h », « en 5 minutes », etc.).
+
+## Déploiement Vercel
+
+`vercel.json` lance `npm run build` et publie le dossier `dist/`.
+La production Vercel publie la branche `main` : le site doit y être fusionné pour être en ligne.

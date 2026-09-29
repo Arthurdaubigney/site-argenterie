@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "description": "Site vitrine haut de gamme : estimation, achat et vente d'argenterie ancienne.",
   "scripts": {
-    "build": "tailwindcss -i ./src/css/input.css -o ./assets/css/styles.css --minify",
+    "build:css": "tailwindcss -i ./src/css/input.css -o ./assets/css/styles.css --minify",
+    "build": "npm run build:css && node tools/build.mjs",
     "dev": "tailwindcss -i ./src/css/input.css -o ./assets/css/styles.css --watch",
     "serve": "npx --yes serve -l 4173 ."
   },
