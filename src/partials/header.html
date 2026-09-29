@@ -1,19 +1,20 @@
-  <header class="site-header fixed inset-x-0 top-0 z-40 border-b border-transparent" data-header>
-    <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-10">
-      <a href="/" class="flex items-center gap-3" aria-label="{{site.name}}, accueil">
+  <header class="site-header fixed inset-x-0 top-0 z-40 border-b border-transparent bg-bg" data-header>
+    <div class="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:gap-6 lg:px-8 xl:px-10">
+      <a href="/" class="flex flex-none items-center gap-3" aria-label="{{site.name}}, accueil">
         {{> logo}}
         <span class="font-display text-[1.45rem] leading-none tracking-tight">{{site.name}}</span>
       </a>
 
-      <nav aria-label="Navigation principale" class="hidden items-center gap-7 xl:flex">
+      <!-- Navigation principale : toujours visible sur ordinateur (dès 1024 px) -->
+      <nav aria-label="Navigation principale" class="hidden items-center gap-5 text-[0.9rem] lg:flex xl:gap-8 xl:text-[0.925rem]">
         <a class="nav-link" href="/vendre-son-argenterie" data-nav="vendre">Vendre</a>
         <a class="nav-link" href="/expertise" data-nav="expertise">Expertise</a>
         <div class="relative" data-dropdown>
           <button type="button" class="nav-link inline-flex items-center gap-1.5" aria-expanded="false" aria-controls="menu-objets" data-dropdown-toggle>
             Objets
-            <svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5L8 10.5L12 6.5"/></svg>
+            <svg class="dropdown-chevron" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5L8 10.5L12 6.5"/></svg>
           </button>
-          <div id="menu-objets" class="nav-dropdown absolute left-1/2 top-full mt-4 w-72 -translate-x-1/2 rounded-[2px] border border-line bg-surface p-2 shadow-[0_24px_60px_-30px_hsl(var(--shadow-tint)/0.45)]" data-dropdown-menu>
+          <div id="menu-objets" class="nav-dropdown absolute left-1/2 top-full mt-5 w-72 -translate-x-1/2 rounded-[2px] border border-line bg-surface p-2 shadow-[0_24px_60px_-30px_hsl(var(--shadow-tint)/0.45)]" data-dropdown-menu>
             <a class="block rounded-[2px] px-4 py-3 hover:bg-surface-2" href="/objets/menageres">Ménagères</a>
             <a class="block rounded-[2px] px-4 py-3 hover:bg-surface-2" href="/objets/couverts-de-maitre">Couverts de maître</a>
             <a class="block rounded-[2px] px-4 py-3 hover:bg-surface-2" href="/objets/orfevrerie">Pièces d’orfèvrerie</a>
@@ -27,34 +28,54 @@
         <a class="nav-link" href="/contact" data-nav="contact">Contact</a>
       </nav>
 
-      <div class="flex items-center gap-2">
-        <a href="/estimation" class="btn-primary hidden !min-h-11 !px-5 !text-[0.9rem] md:inline-flex" data-tally-open data-source="header">
+      <div class="flex flex-none items-center gap-3">
+        <a href="/estimation" class="btn-primary hidden !min-h-11 !px-5 !text-[0.875rem] sm:inline-flex lg:!px-4 xl:!px-5 xl:!text-[0.9rem]" data-tally-open data-source="header">
           Faire estimer mon argenterie
         </a>
-        <button type="button" class="inline-flex h-11 w-11 items-center justify-center xl:hidden" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
-          <span class="sr-only">Ouvrir le menu</span>
-          [[ph:list]]
+        <!-- Menu tablette / mobile : bouton libellé, jamais une icône seule -->
+        <button type="button" class="menu-btn inline-flex h-11 items-center gap-2.5 rounded-[2px] border border-line px-4 text-[0.9rem] font-medium lg:hidden" aria-expanded="false" aria-controls="menu-mobile" data-menu-toggle>
+          <span class="t-icon-swap" data-state="a" aria-hidden="true">
+            <span class="t-icon" data-icon="a">[[ph:list]]</span>
+            <span class="t-icon" data-icon="b">[[ph:x]]</span>
+          </span>
+          <span data-menu-label>Menu</span>
         </button>
       </div>
     </div>
 
-    <div id="menu-mobile" class="mobile-menu absolute inset-x-0 top-[72px] max-h-[calc(100dvh-72px)] overflow-y-auto border-b border-line bg-bg px-4 pb-8 pt-2 xl:hidden" data-menu>
-      <nav aria-label="Navigation mobile" class="mx-auto flex max-w-7xl flex-col sm:px-2">
-        <a class="border-b border-line py-4 text-lg" href="/vendre-son-argenterie">Vendre son argenterie</a>
-        <a class="border-b border-line py-4 text-lg" href="/expertise">Expertise et estimation</a>
-        <a class="border-b border-line py-4 text-lg" href="/objets">Objets estimés</a>
-        <div class="grid grid-cols-2 gap-x-4 border-b border-line py-3 text-ink-2">
-          <a class="py-2" href="/objets/menageres">Ménagères</a>
-          <a class="py-2" href="/objets/couverts-de-maitre">Couverts de maître</a>
-          <a class="py-2" href="/objets/orfevrerie">Orfèvrerie</a>
-          <a class="py-2" href="/objets/metaux-precieux">Métaux précieux</a>
-          <a class="py-2" href="/objets/objets-de-collection">Objets de collection</a>
+    <!-- Panneau de navigation plein écran (< 1024 px) -->
+    <div id="menu-mobile" class="mobile-menu fixed inset-x-0 bottom-0 top-[72px] overflow-y-auto overscroll-contain border-t border-line bg-bg lg:hidden" data-menu hidden>
+      <div class="t-stagger mx-auto flex min-h-full max-w-3xl flex-col px-4 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-8 sm:px-6 sm:pt-12" data-menu-content>
+        <nav aria-label="Navigation mobile">
+          <ul class="space-y-1">
+            <li class="t-stagger-line" style="--i:0"><a class="flex items-center justify-between py-2.5 font-display text-[1.75rem] leading-tight sm:py-3 sm:text-4xl" href="/vendre-son-argenterie" data-nav="vendre">Vendre son argenterie <span class="text-lg text-ink-2">[[ph:arrow-right]]</span></a></li>
+            <li class="t-stagger-line" style="--i:1"><a class="flex items-center justify-between py-2.5 font-display text-[1.75rem] leading-tight sm:py-3 sm:text-4xl" href="/expertise" data-nav="expertise">Expertise <span class="text-lg text-ink-2">[[ph:arrow-right]]</span></a></li>
+            <li class="t-stagger-line" style="--i:2"><a class="flex items-center justify-between py-2.5 font-display text-[1.75rem] leading-tight sm:py-3 sm:text-4xl" href="/acquerir" data-nav="acquerir">Acquérir une pièce <span class="text-lg text-ink-2">[[ph:arrow-right]]</span></a></li>
+            <li class="t-stagger-line" style="--i:3"><a class="flex items-center justify-between py-2.5 font-display text-[1.75rem] leading-tight sm:py-3 sm:text-4xl" href="/guides" data-nav="guides">Guides <span class="text-lg text-ink-2">[[ph:arrow-right]]</span></a></li>
+            <li class="t-stagger-line" style="--i:4"><a class="flex items-center justify-between py-2.5 font-display text-[1.75rem] leading-tight sm:py-3 sm:text-4xl" href="/la-maison" data-nav="maison">La maison <span class="text-lg text-ink-2">[[ph:arrow-right]]</span></a></li>
+          </ul>
+
+          <div class="t-stagger-line mt-8 border-t border-line pt-6" style="--i:5">
+            <a href="/objets" class="text-sm font-medium text-ink-2 hover:text-ink">Objets estimés</a>
+            <ul class="mt-3 grid grid-cols-2 gap-x-6">
+              <li><a class="block py-2.5" href="/objets/menageres">Ménagères</a></li>
+              <li><a class="block py-2.5" href="/objets/couverts-de-maitre">Couverts de maître</a></li>
+              <li><a class="block py-2.5" href="/objets/orfevrerie">Orfèvrerie</a></li>
+              <li><a class="block py-2.5" href="/objets/metaux-precieux">Métaux précieux</a></li>
+              <li><a class="block py-2.5" href="/objets/objets-de-collection">Collection</a></li>
+            </ul>
+          </div>
+
+          <ul class="t-stagger-line mt-6 flex flex-wrap gap-x-6 gap-y-1 border-t border-line pt-6 text-ink-2" style="--i:6">
+            <li><a class="block py-2 hover:text-ink" href="/faq">Questions fréquentes</a></li>
+            <li><a class="block py-2 hover:text-ink" href="/contact">Contact</a></li>
+          </ul>
+        </nav>
+
+        <div class="t-stagger-line mt-auto pt-10" style="--i:7">
+          <a href="/estimation" class="btn-primary w-full" data-tally-open data-source="menu">Faire estimer mon argenterie <span class="cta-arrow">[[ph:arrow-right]]</span></a>
+          <p class="mt-4 flex items-center justify-center gap-2 text-sm text-ink-2">[[ph:lock-key]] Demande confidentielle et sans engagement</p>
         </div>
-        <a class="border-b border-line py-4 text-lg" href="/acquerir">Acquérir une pièce</a>
-        <a class="border-b border-line py-4 text-lg" href="/guides">Guides</a>
-        <a class="border-b border-line py-4 text-lg" href="/la-maison">La maison</a>
-        <a class="border-b border-line py-4 text-lg" href="/faq">Questions fréquentes</a>
-        <a class="py-4 text-lg" href="/contact">Contact</a>
-      </nav>
+      </div>
     </div>
   </header>

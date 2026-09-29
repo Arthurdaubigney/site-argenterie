@@ -89,6 +89,12 @@
   --modal-scale: 0.96;
   --modal-scale-close: 0.96;
   --scale-medium: 0.97;
+
+  /* Icon swap (09-icon-swap) */
+  --icon-swap-dur: 250ms;
+  --icon-swap-blur: 2px;
+  --icon-swap-start-scale: 0.25;
+  --icon-swap-ease: ease-in-out;
   --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* Accordion (21-accordion) */
@@ -111,7 +117,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
   }
   body {
@@ -352,6 +358,7 @@ dialog.modal-root::backdrop { background: transparent; }
 .mobile-menu {
   opacity: 0;
   transform: translateY(-8px);
+  z-index: 1;
   pointer-events: none;
   transition:
     opacity var(--duration-quick) var(--ease-smooth-out),
@@ -391,18 +398,48 @@ dialog.modal-root::backdrop { background: transparent; }
 }
 .sticky-cta.is-visible { transform: translateY(0); }
 
-/* En-tête : filet et fond qui apparaissent quand on quitte le haut de page */
+/* En-tête : toujours opaque (le texte ne transparaît jamais dessous).
+   Au défilement, seuls un filet et une ombre légère apparaissent. */
 .site-header {
+  background-color: var(--bg);
   transition:
-    background-color var(--duration-fast) var(--ease-smooth-out),
-    border-color var(--duration-fast) var(--ease-smooth-out);
+    border-color var(--duration-fast) var(--ease-smooth-out),
+    box-shadow var(--duration-fast) var(--ease-smooth-out);
 }
-.site-header.is-scrolled {
-  background-color: color-mix(in srgb, var(--bg) 86%, transparent);
+.site-header.is-scrolled,
+.menu-open .site-header {
   border-color: var(--line);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
 }
+.site-header.is-scrolled { box-shadow: 0 10px 30px -24px hsl(var(--shadow-tint) / 0.5); }
+
+/* Haut de page des pages intérieures : hauteur d'en-tête + respiration fluide */
+.page-top { padding-top: calc(72px + clamp(3rem, 6vw, 5.5rem)); }
+
+/* Menu tablette / mobile */
+.menu-btn { transition: border-color var(--duration-fast) var(--ease-smooth-out), background-color var(--duration-fast) var(--ease-smooth-out); }
+.menu-btn:hover, .menu-btn[aria-expanded="true"] { border-color: var(--ink); }
+[data-menu] a[aria-current="page"] { font-style: italic; }
+.menu-open .sticky-cta { transform: translateY(110%); }
+
+/* 09 : Icon swap (menu / fermer) */
+.t-icon-swap { position: relative; display: inline-grid; }
+.t-icon-swap .t-icon {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  transition:
+    opacity   var(--icon-swap-dur) var(--icon-swap-ease),
+    filter    var(--icon-swap-dur) var(--icon-swap-ease),
+    transform var(--icon-swap-dur) var(--icon-swap-ease);
+  will-change: opacity, filter, transform;
+}
+.t-icon-swap[data-state="a"] .t-icon[data-icon="a"],
+.t-icon-swap[data-state="b"] .t-icon[data-icon="b"] { opacity: 1; filter: blur(0); transform: scale(1); }
+.t-icon-swap[data-state="a"] .t-icon[data-icon="b"],
+.t-icon-swap[data-state="b"] .t-icon[data-icon="a"] { opacity: 0; filter: blur(var(--icon-swap-blur)); transform: scale(var(--icon-swap-start-scale)); }
+
+/* Chevron du sous-menu « Objets » */
+.dropdown-chevron { transition: transform var(--duration-fast) var(--ease-smooth-out); }
+[aria-expanded="true"] > .dropdown-chevron { transform: scaleY(-1); }
 
 /* Cartes d'objets : zoom lent de l'image au survol */
 .object-card img {
@@ -415,13 +452,11 @@ dialog.modal-root::backdrop { background: transparent; }
   .t-modal,
   .modal-veil,
   .t-acc-panel, .t-acc-panel-inner, .t-acc-chevron,
-  .mobile-menu, .nav-dropdown, .sticky-cta, .site-header,
+  .mobile-menu, .nav-dropdown, .sticky-cta, .site-header, .t-icon-swap .t-icon, .dropdown-chevron, .menu-btn,
   .object-card img, .cta-arrow, .btn-primary, .btn-ghost {
     transition: none !important;
   }
   .js .t-stagger-line { opacity: 1; transform: none; filter: none; }
 }
 
-@media (prefers-reduced-transparency: reduce) {
-  .site-header.is-scrolled { background-color: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
-}
+
