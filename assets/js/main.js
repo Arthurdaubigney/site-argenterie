@@ -315,6 +315,12 @@ document.querySelectorAll("[data-dropdown]").forEach((wrap) => {
     btn.setAttribute("aria-expanded", String(open));
   };
   btn.addEventListener("click", () => set(!panel.classList.contains("is-open")));
+  // Souris : ouverture au survol avec un léger délai d'intention, fermeture plus tardive.
+  if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    let t;
+    wrap.addEventListener("pointerenter", () => { clearTimeout(t); t = setTimeout(() => set(true), 120); });
+    wrap.addEventListener("pointerleave", () => { clearTimeout(t); t = setTimeout(() => set(false), 260); });
+  }
   document.addEventListener("click", (e) => !wrap.contains(e.target) && set(false));
   wrap.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && panel.classList.contains("is-open")) {

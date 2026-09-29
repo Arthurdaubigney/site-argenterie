@@ -15,6 +15,8 @@
 //   [[ph:nom]]                      icône Phosphor (graisse light) en SVG
 import { readFileSync, writeFileSync, mkdirSync, rmSync, cpSync, readdirSync, statSync, watch, existsSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 
 const ROOT = process.cwd();
 const SRC = join(ROOT, "src");
@@ -31,7 +33,13 @@ function walk(dir) {
   });
 }
 
+function buildCss() {
+  const bin = join(ROOT, "node_modules/.bin/tailwindcss");
+  execFileSync(bin, ["-i", "src/css/input.css", "-o", "dist/assets/css/styles.css", "--minify"], { cwd: ROOT, stdio: "pipe" });
+}
+
 function build() {
+  cpSync(join(ROOT, "assets"), join(DIST, "assets"), { recursive: true });
   const site = readJSON(join(SRC, "data/site.json"));
   const credits = Object.fromEntries(readJSON(join(SRC, "data/credits.json")).map((c) => [c.slug, c]));
   const captions = readJSON(join(SRC, "data/captions.json"));
@@ -61,6 +69,18 @@ function build() {
   const caption = (slug) => {
     const c = credits[slug];
     return `${captions[slug] || c.title}. <a href="${c.url}" class="underline decoration-line underline-offset-2 hover:text-ink" rel="noopener" target="_blank">${c.source}</a>`;
+  };
+
+  // Empreinte de version des ressources : l'URL change à chaque modification,
+  // le navigateur ne peut donc jamais garder une ancienne feuille de style.
+  const version = (rel) => {
+    const file = join(DIST, rel);
+    const src = existsSync(file) ? file : join(ROOT, rel);
+    return existsSync(src) ? createHash("sha1").update(readFileSync(src)).digest("hex").slice(0, 10) : String(Date.now());
+  };
+  const assetVars = {
+    "asset-css": `/assets/css/styles.css?v=${version("assets/css/styles.css")}`,
+    "asset-js": `/assets/js/main.js?v=${version("assets/js/main.js")}`,
   };
 
   const pages = walk(join(SRC, "pages")).filter((p) => p.endsWith(".html"));
@@ -158,7 +178,7 @@ function build() {
       );
     // Variables
     html = html.replace(/\{\{(site\.)?([\w-]+)\}\}/g, (m, isSite, k) => {
-      const v = isSite ? site[k] : vars[k];
+      const v = isSite ? site[k] : (vars[k] ?? assetVars[k]);
       return v === undefined ? m : v;
     });
     // Navigation active
@@ -175,8 +195,6 @@ function build() {
     if (!meta.noindex && rel !== "404.html") sitemap.push(vars.canonical);
   }
 
-  // Ressources statiques
-  cpSync(join(ROOT, "assets"), join(DIST, "assets"), { recursive: true, filter: (p) => !p.includes("/assets/css") });
   writeFileSync(
     join(DIST, "sitemap.xml"),
     `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemap
@@ -198,8 +216,10 @@ function run() {
   }
 }
 
-if (!process.argv.includes("--watch")) rmSync(DIST, { recursive: true, force: true });
+const WATCH = process.argv.includes("--watch");
+if (!WATCH) rmSync(DIST, { recursive: true, force: true });
 mkdirSync(DIST, { recursive: true });
+if (!WATCH) buildCss(); // en mode --watch, « tailwindcss --watch » tourne à côté
 run();
 
 if (process.argv.includes("--watch")) {
