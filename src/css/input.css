@@ -1,0 +1,382 @@
+/* ==========================================================================
+   Argenterie : feuille de style source (Tailwind CSS v4)
+   Build : npm run build  ->  assets/css/styles.css
+   ========================================================================== */
+
+/* source(none) : on déclare explicitement les fichiers à scanner pour ne pas
+   embarquer les classes des dossiers .claude/ ou node_modules/. */
+@import "tailwindcss" source(none);
+@source "../../index.html";
+@source "../../mentions-legales.html";
+@source "../../confidentialite.html";
+@source "../../assets/js";
+
+/* --------------------------------------------------------------------------
+   1. Design tokens : palette « luxe froid » (argent, graphite, bleu nuit)
+   -------------------------------------------------------------------------- */
+:root {
+  --bg: #f3f4f6;
+  --surface: #fafbfc;
+  --surface-2: #e7eaee;
+  --ink: #0f1216;
+  --ink-2: #474e57;
+  --line: #d3d8de;
+  --accent: #1c2b45;
+  --accent-hover: #2a3d5f;
+  --on-accent: #f3f4f6;
+  --focus: #1c2b45;
+  --silver: linear-gradient(135deg, #d6dade 0%, #f5f6f7 38%, #c4c9cf 66%, #eceef0 100%);
+  --shadow-tint: 220 30% 20%;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1013;
+    --surface: #14181d;
+    --surface-2: #1b2027;
+    --ink: #e8eaed;
+    --ink-2: #a4abb4;
+    --line: #2a3038;
+    --accent: #c9d3e3;
+    --accent-hover: #dde4ef;
+    --on-accent: #0d1013;
+    --focus: #c9d3e3;
+    --silver: linear-gradient(135deg, #22272e 0%, #3a414a 38%, #1c2026 66%, #2d333b 100%);
+    --shadow-tint: 220 40% 2%;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-on-accent: var(--on-accent);
+
+  --font-display: "Cormorant Garamond", "Cormorant", Garamond, "Times New Roman", serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* Système de formes unique : angles quasi vifs partout (2px). */
+  --radius-ui: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2. Motion tokens (transitions.dev, _root.css)
+   -------------------------------------------------------------------------- */
+:root {
+  --duration-stagger: 40ms;
+  --duration-micro: 80ms;
+  --duration-quick: 150ms;
+  --duration-fast: 250ms;
+  --duration-medium: 350ms;
+  --duration-slow: 400ms;
+  --duration-very-slow: 500ms;
+
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: ease-in-out;
+  --ease-out: ease-out;
+
+  /* Modal (06-modal) */
+  --modal-open-dur: 250ms;
+  --modal-close-dur: 150ms;
+  --modal-scale: 0.96;
+  --modal-scale-close: 0.96;
+  --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Accordion (21-accordion) */
+  --acc-expand: 250ms;
+  --acc-collapse: 250ms;
+  --acc-chevron: 250ms;
+  --acc-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Texts reveal (18-texts-reveal) : un peu plus lent et espacé, registre luxe */
+  --stagger-dur: 700ms;
+  --stagger-distance: 12px;
+  --stagger-stagger: 80ms;
+  --stagger-blur: 3px;
+  --stagger-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* --------------------------------------------------------------------------
+   3. Base
+   -------------------------------------------------------------------------- */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  p { text-wrap: pretty; }
+  :focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: var(--radius-ui);
+  }
+  ::selection { background: var(--accent); color: var(--on-accent); }
+  img { color: transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   4. Composants
+   -------------------------------------------------------------------------- */
+@layer components {
+  /* Bouton principal : même libellé partout pour l'intention « estimer » */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    min-height: 3.25rem;
+    padding: 0 1.75rem;
+    border-radius: var(--radius-ui);
+    background: var(--accent);
+    color: var(--on-accent);
+    font-weight: 500;
+    font-size: 0.975rem;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    cursor: pointer;
+    box-shadow: 0 10px 30px -12px hsl(var(--shadow-tint) / 0.45);
+    transition:
+      background-color var(--duration-fast) var(--ease-smooth-out),
+      transform var(--duration-quick) var(--ease-smooth-out),
+      box-shadow var(--duration-fast) var(--ease-smooth-out);
+  }
+  .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 14px 34px -12px hsl(var(--shadow-tint) / 0.55); }
+  .btn-primary:active { transform: translateY(1px) scale(0.99); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3.25rem;
+    padding: 0 0.25rem;
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.975rem;
+    white-space: nowrap;
+    cursor: pointer;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: 0 calc(100% - 0.85rem);
+    background-repeat: no-repeat;
+    transition: background-size var(--duration-slow) var(--ease-smooth-out);
+  }
+  .btn-ghost:hover { background-size: 100% 1px; }
+
+  /* Flèche des CTA : glisse au survol (learn-more hover, simplifié) */
+  .cta-arrow { transition: transform var(--duration-fast) var(--ease-smooth-out); }
+  .btn-primary:hover .cta-arrow,
+  .btn-ghost:hover .cta-arrow { transform: translateX(4px); }
+
+  .icon { width: 1.35em; height: 1.35em; flex: none; fill: currentColor; }
+
+  /* Fond « argent brossé » utilisé comme repli tant qu'une photo manque */
+  .silver-fill { background: var(--silver); }
+
+  /* Grain très léger, fixe et non interactif (jamais sur un conteneur qui défile) */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Liens de navigation */
+  .nav-link {
+    position: relative;
+    font-size: 0.925rem;
+    color: var(--ink-2);
+    transition: color var(--duration-fast) var(--ease-smooth-out);
+  }
+  .nav-link:hover { color: var(--ink); }
+}
+
+/* --------------------------------------------------------------------------
+   5. Transitions (transitions.dev) : snippets conservés tels quels
+   -------------------------------------------------------------------------- */
+
+/* 18 : Texts reveal, généralisé avec --i pour cascader N éléments.
+   Les éléments ne sont masqués que si JS est actif (classe .js sur <html>). */
+.js .t-stagger-line {
+  opacity: 0;
+  transform: translateY(var(--stagger-distance));
+  filter: blur(var(--stagger-blur));
+  transition:
+    opacity   var(--stagger-dur) var(--stagger-ease),
+    transform var(--stagger-dur) var(--stagger-ease),
+    filter    var(--stagger-dur) var(--stagger-ease);
+  transition-delay: calc(var(--stagger-stagger) * var(--i, 0));
+  will-change: transform, opacity, filter;
+}
+.js .t-stagger.is-shown .t-stagger-line {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+/* 06 : Modal open / close */
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity   var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+.t-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity   var(--modal-close-dur) var(--modal-ease);
+}
+
+/* Voile de la modale : suit le même rythme que la modale */
+.modal-veil {
+  opacity: 0;
+  transition: opacity var(--modal-open-dur) var(--modal-ease);
+}
+.modal-root.is-open .modal-veil { opacity: 1; }
+.modal-root.is-closing .modal-veil { opacity: 0; transition-duration: var(--modal-close-dur); }
+
+dialog.modal-root {
+  max-width: none;
+  max-height: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+dialog.modal-root::backdrop { background: transparent; }
+
+/* 21 : Accordion expand */
+.t-acc-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--acc-collapse) var(--acc-ease);
+}
+.t-acc[data-open="true"] .t-acc-panel {
+  grid-template-rows: 1fr;
+  transition: grid-template-rows var(--acc-expand) var(--acc-ease);
+}
+.t-acc-panel-inner {
+  overflow: hidden;
+  opacity: 0;
+  filter: blur(2px);
+  transition:
+    opacity var(--acc-collapse) var(--acc-ease),
+    filter var(--acc-collapse) var(--acc-ease);
+}
+.t-acc[data-open="true"] .t-acc-panel-inner {
+  opacity: 1;
+  filter: blur(0);
+  transition:
+    opacity var(--acc-expand) var(--acc-ease),
+    filter var(--acc-expand) var(--acc-ease);
+}
+.t-acc-chevron {
+  display: inline-flex;
+  transform: scaleY(1);
+  transform-origin: center;
+  transition: transform var(--acc-chevron) var(--acc-ease);
+}
+.t-acc-chevron path { vector-effect: non-scaling-stroke; }
+.t-acc[data-open="true"] .t-acc-chevron {
+  transform: scaleY(-1);
+}
+
+/* Menu mobile + barre CTA mobile : glissements courts */
+.mobile-menu {
+  opacity: 0;
+  transform: translateY(-8px);
+  pointer-events: none;
+  transition:
+    opacity var(--duration-quick) var(--ease-smooth-out),
+    transform var(--duration-quick) var(--ease-smooth-out);
+}
+.mobile-menu.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition-duration: var(--duration-fast);
+}
+.sticky-cta {
+  transform: translateY(110%);
+  transition: transform var(--duration-medium) var(--ease-smooth-out);
+}
+.sticky-cta.is-visible { transform: translateY(0); }
+
+/* En-tête : filet et fond qui apparaissent quand on quitte le haut de page */
+.site-header {
+  transition:
+    background-color var(--duration-fast) var(--ease-smooth-out),
+    border-color var(--duration-fast) var(--ease-smooth-out);
+}
+.site-header.is-scrolled {
+  background-color: color-mix(in srgb, var(--bg) 86%, transparent);
+  border-color: var(--line);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+/* Cartes d'objets : zoom lent de l'image au survol */
+.object-card img {
+  transition: transform 1.2s var(--ease-smooth-out);
+}
+.object-card:hover img { transform: scale(1.04); }
+
+@media (prefers-reduced-motion: reduce) {
+  .t-stagger-line,
+  .t-modal,
+  .modal-veil,
+  .t-acc-panel, .t-acc-panel-inner, .t-acc-chevron,
+  .mobile-menu, .sticky-cta, .site-header,
+  .object-card img, .cta-arrow, .btn-primary, .btn-ghost {
+    transition: none !important;
+  }
+  .js .t-stagger-line { opacity: 1; transform: none; filter: none; }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .site-header.is-scrolled { background-color: var(--bg); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "site-argenterie",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Site vitrine haut de gamme : estimation, achat et vente d'argenterie ancienne.",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/css/input.css -o ./assets/css/styles.css --minify",
+    "build": "npm run build:css && node tools/build.mjs",
+    "dev": "tailwindcss -i ./src/css/input.css -o ./assets/css/styles.css --watch",
+    "serve": "npx --yes serve -l 4173 ."
+  },
+  "devDependencies": {
+    "@phosphor-icons/core": "^2.1.1",
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}
