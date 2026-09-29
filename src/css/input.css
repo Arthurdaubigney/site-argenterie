@@ -28,6 +28,7 @@
   --focus: #1c2b45;
   --silver: linear-gradient(135deg, #d6dade 0%, #f5f6f7 38%, #c4c9cf 66%, #eceef0 100%);
   --shadow-tint: 220 30% 20%;
+  --frame: #dcdfe2;
   color-scheme: light;
 }
 
@@ -45,6 +46,7 @@
     --focus: #c9d3e3;
     --silver: linear-gradient(135deg, #22272e 0%, #3a414a 38%, #1c2026 66%, #2d333b 100%);
     --shadow-tint: 220 40% 2%;
+    --frame: #23282f;
     color-scheme: dark;
   }
 }
@@ -136,6 +138,10 @@
     text-wrap: balance;
   }
   p { text-wrap: pretty; }
+  h1, h2, h3, p, li, dd, dt, figcaption { overflow-wrap: break-word; }
+  /* Les enfants de grille peuvent se rétrécir sous la largeur de leur contenu
+     (évite tout débordement horizontal sur les petits écrans). */
+  :where(.grid) > * { min-width: 0; }
   :focus-visible {
     outline: 2px solid var(--focus);
     outline-offset: 3px;
@@ -175,6 +181,11 @@
       transform var(--duration-quick) var(--ease-smooth-out),
       box-shadow var(--duration-fast) var(--ease-smooth-out);
   }
+  /* Très petits écrans : le bouton peut passer sur deux lignes plutôt que déborder */
+  @media (max-width: 379px) {
+    .btn-primary { white-space: normal; text-align: center; padding-inline: 1.25rem; gap: 0.5rem; line-height: 1.3; padding-block: 0.6rem; }
+  }
+  .btn-primary { max-width: 100%; }
   .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 14px 34px -12px hsl(var(--shadow-tint) / 0.55); }
   .btn-primary:active { transform: translateY(1px) scale(0.99); }
 
@@ -223,7 +234,7 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-ui);
-    background: #dcdfe2;
+    background: var(--frame);
   }
 
   /* Texte long (guides, pages légales) */
@@ -382,6 +393,8 @@ dialog.modal-root::backdrop { background: transparent; }
     transform var(--duration-quick) var(--ease-smooth-out),
     visibility 0s linear var(--duration-quick);
 }
+/* Pont invisible entre le déclencheur et le panneau (le survol ne se coupe pas) */
+.nav-dropdown::before { content: ""; position: absolute; inset-inline: 0; top: -1.25rem; height: 1.25rem; }
 .nav-dropdown.is-open {
   opacity: 1;
   transform: translateY(0) scale(1);

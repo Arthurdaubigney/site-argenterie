@@ -3,51 +3,51 @@
       <div class="md:col-span-4">
         <a href="/" class="flex items-center gap-3">{{> logo}}<span class="font-display text-3xl">{{site.name}}</span></a>
         <p class="mt-5 max-w-[38ch] text-ink-2">Expertise, estimation et rachat d’argenterie ancienne, de ménagères et d’orfèvrerie de maître.</p>
-        <a href="/estimation" class="btn-primary mt-7" data-tally-open data-source="footer">Faire estimer mon argenterie</a>
+        <a class="nav-link mt-4 inline-flex items-center gap-2 py-1.5" href="mailto:{{site.email}}">[[ph:envelope-simple]]{{site.email}}</a>
+        <br><a href="/estimation" class="btn-primary mt-6" data-tally-open data-source="footer">Faire estimer mon argenterie</a>
       </div>
       <nav aria-label="Services" class="md:col-span-2">
         <p class="text-sm font-medium">Services</p>
-        <ul class="mt-4 space-y-3">
-          <li><a class="nav-link" href="/estimation">Estimation</a></li>
-          <li><a class="nav-link" href="/vendre-son-argenterie">Vendre</a></li>
-          <li><a class="nav-link" href="/expertise">Expertise</a></li>
-          <li><a class="nav-link" href="/acquerir">Acquérir</a></li>
+        <ul class="mt-3 space-y-0.5">
+          <li><a class="nav-link inline-block py-1.5" href="/estimation">Estimation</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/vendre-son-argenterie">Vendre</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/expertise">Expertise</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/acquerir">Acquérir</a></li>
         </ul>
       </nav>
       <nav aria-label="Objets estimés" class="md:col-span-2">
         <p class="text-sm font-medium">Objets</p>
-        <ul class="mt-4 space-y-3">
-          <li><a class="nav-link" href="/objets/menageres">Ménagères</a></li>
-          <li><a class="nav-link" href="/objets/couverts-de-maitre">Couverts de maître</a></li>
-          <li><a class="nav-link" href="/objets/orfevrerie">Orfèvrerie</a></li>
-          <li><a class="nav-link" href="/objets/metaux-precieux">Métaux précieux</a></li>
-          <li><a class="nav-link" href="/objets/objets-de-collection">Collection</a></li>
+        <ul class="mt-3 space-y-0.5">
+          <li><a class="nav-link inline-block py-1.5" href="/objets/menageres">Ménagères</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/objets/couverts-de-maitre">Couverts de maître</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/objets/orfevrerie">Orfèvrerie</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/objets/metaux-precieux">Métaux précieux</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/objets/objets-de-collection">Collection</a></li>
         </ul>
       </nav>
       <nav aria-label="Ressources" class="md:col-span-2">
         <p class="text-sm font-medium">Ressources</p>
-        <ul class="mt-4 space-y-3">
-          <li><a class="nav-link" href="/guides/poincons-argent">Lire les poinçons</a></li>
-          <li><a class="nav-link" href="/guides/entretenir-argenterie">Entretien</a></li>
-          <li><a class="nav-link" href="/guides/grandes-maisons">Grandes maisons</a></li>
-          <li><a class="nav-link" href="/faq">Questions fréquentes</a></li>
+        <ul class="mt-3 space-y-0.5">
+          <li><a class="nav-link inline-block py-1.5" href="/guides/poincons-argent">Lire les poinçons</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/guides/entretenir-argenterie">Entretien</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/guides/grandes-maisons">Grandes maisons</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/faq">Questions fréquentes</a></li>
         </ul>
       </nav>
       <div class="md:col-span-2">
         <p class="text-sm font-medium">La maison</p>
-        <ul class="mt-4 space-y-3">
-          <li><a class="nav-link" href="/la-maison">Nos engagements</a></li>
-          <li><a class="nav-link" href="/contact">Contact</a></li>
-          <li><a class="nav-link inline-flex items-center gap-2 break-all" href="mailto:{{site.email}}">{{site.email}}</a></li>
+        <ul class="mt-3 space-y-0.5">
+          <li><a class="nav-link inline-block py-1.5" href="/la-maison">Nos engagements</a></li>
+          <li><a class="nav-link inline-block py-1.5" href="/contact">Contact</a></li>
         </ul>
       </div>
     </div>
     <div class="mx-auto mt-14 flex max-w-7xl flex-col gap-4 border-t border-line px-4 pt-8 text-sm text-ink-2 sm:flex-row sm:justify-between sm:px-6 lg:px-10">
       <p>© <span data-year>{{site.year}}</span> {{site.name}}. Tous droits réservés.</p>
       <ul class="flex flex-wrap gap-x-6 gap-y-2">
-        <li><a class="nav-link text-sm" href="/mentions-legales">Mentions légales</a></li>
-        <li><a class="nav-link text-sm" href="/confidentialite">Confidentialité</a></li>
-        <li><a class="nav-link text-sm" href="/credits-photos">Crédits photographiques</a></li>
+        <li><a class="nav-link inline-block py-2 text-sm" href="/mentions-legales">Mentions légales</a></li>
+        <li><a class="nav-link inline-block py-2 text-sm" href="/confidentialite">Confidentialité</a></li>
+        <li><a class="nav-link inline-block py-2 text-sm" href="/credits-photos">Crédits photographiques</a></li>
       </ul>
     </div>
   </footer>
