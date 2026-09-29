@@ -242,14 +242,42 @@ const stickyCta = document.querySelector("[data-sticky-cta]");
 const hero = document.querySelector("#contenu > section, #contenu > article");
 const formSection = document.getElementById("estimation");
 
-function setMenu(open) {
-  menu.classList.toggle("is-open", open);
+// Panneau de navigation (< 1024 px) : bouton libellé « Menu / Fermer », icône
+// animée (transitions.dev 09-icon-swap), arrière-plan inerte et défilement bloqué.
+const menuContent = menu?.querySelector("[data-menu-content]");
+const menuIcon = menuToggle?.querySelector(".t-icon-swap");
+const menuLabel = menuToggle?.querySelector("[data-menu-label]");
+const background = [...document.querySelectorAll("#contenu, footer, [data-sticky-cta]")];
+let menuTimer;
+
+function setMenu(open, { restoreFocus = true } = {}) {
+  if (!menu || open === menu.classList.contains("is-open")) return;
+  clearTimeout(menuTimer);
   menuToggle.setAttribute("aria-expanded", String(open));
-  menuToggle.querySelector(".sr-only").textContent = open ? "Fermer le menu" : "Ouvrir le menu";
+  menuIcon?.setAttribute("data-state", open ? "b" : "a");
+  if (menuLabel) menuLabel.textContent = open ? "Fermer" : "Menu";
+  root.classList.toggle("menu-open", open);
+  root.style.overflow = open ? "hidden" : "";
+  background.forEach((el) => (el.inert = open));
+
+  if (open) {
+    menu.hidden = false;
+    void menu.offsetHeight; // reflow : l'animation d'ouverture se joue
+    menu.classList.add("is-open");
+    menuContent?.classList.add("is-shown");
+    menu.querySelector("a")?.focus({ preventScroll: true });
+  } else {
+    menu.classList.remove("is-open");
+    menuContent?.classList.remove("is-shown");
+    menuTimer = setTimeout(() => (menu.hidden = true), reduceMotion.matches ? 0 : cssMs("--duration-fast", 250));
+    if (restoreFocus) menuToggle.focus({ preventScroll: true });
+  }
 }
 menuToggle?.addEventListener("click", () => setMenu(!menu.classList.contains("is-open")));
-menu?.addEventListener("click", (e) => e.target.closest("a") && setMenu(false));
+menu?.addEventListener("click", (e) => e.target.closest("a") && setMenu(false, { restoreFocus: false }));
 document.addEventListener("keydown", (e) => e.key === "Escape" && menu?.classList.contains("is-open") && setMenu(false));
+// Passage en affichage ordinateur : on referme le panneau.
+window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => e.matches && setMenu(false, { restoreFocus: false }));
 
 if ("IntersectionObserver" in window && hero) {
   let heroVisible = true;
@@ -258,9 +286,8 @@ if ("IntersectionObserver" in window && hero) {
 
   new IntersectionObserver(([e]) => {
     heroVisible = e.isIntersecting;
-    header.classList.toggle("is-scrolled", e.intersectionRatio < 0.98);
     updateSticky();
-  }, { threshold: [0, 0.98] }).observe(hero);
+  }).observe(hero);
 
   if (formSection) {
     new IntersectionObserver(([e]) => {
@@ -268,6 +295,15 @@ if ("IntersectionObserver" in window && hero) {
       updateSticky();
     }).observe(formSection);
   }
+}
+
+/* En-tête : filet dès que la page quitte le haut (repère de 1 px, sans écouteur de scroll) */
+if ("IntersectionObserver" in window && header) {
+  const sentinel = document.createElement("div");
+  sentinel.setAttribute("aria-hidden", "true");
+  sentinel.style.cssText = "position:absolute;top:0;left:0;width:1px;height:8px;pointer-events:none";
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([e]) => header.classList.toggle("is-scrolled", !e.isIntersecting)).observe(sentinel);
 }
 
 /* Sous-menu « Objets » (desktop) */
