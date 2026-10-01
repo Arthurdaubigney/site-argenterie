@@ -104,7 +104,9 @@ function build() {
       canonical: site.url.replace(/\/$/, "") + (path === "/" ? "/" : path),
       ogimage: site.url.replace(/\/$/, "") + `/assets/img/photos/${meta.ogphoto || "soupiere-roettiers"}-1600.webp`,
       ogalt: alts[meta.ogphoto || "soupiere-roettiers"] || "",
-      robots: meta.noindex ? "noindex, follow" : "index, follow",
+      robots: meta.nofollow ? "noindex, nofollow" : meta.noindex ? "noindex, follow" : "index, follow",
+      // Balise de conversion (Google Ads) injectée uniquement sur les pages qui la demandent
+      headextra: meta.conversion ? partials["conversion-tag"] || "" : "",
       source: meta.source || (path === "/" ? "accueil" : path.slice(1).replace(/\//g, "-")),
     };
 
