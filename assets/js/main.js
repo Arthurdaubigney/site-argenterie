@@ -125,6 +125,17 @@ document.addEventListener(
   { passive: true }
 );
 
+// Demande envoyée : Tally prévient la page par postMessage, on redirige vers
+// /merci (page de conversion Google Ads, absente de la navigation et non indexée).
+window.addEventListener("message", (e) => {
+  if (!/^https:\/\/([a-z0-9-]+\.)?tally\.so$/.test(e.origin)) return;
+  let data = e.data;
+  try { if (typeof data === "string") data = JSON.parse(data); } catch { return; }
+  if (data && data.event === "Tally.FormSubmitted" && location.pathname !== "/merci") {
+    setTimeout(() => location.assign("/merci"), 600);
+  }
+});
+
 /* --------------------------------------------------------------------------
    2. Modale (transitions.dev 06-modal) sur <dialog> natif
    -------------------------------------------------------------------------- */
