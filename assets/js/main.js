@@ -9,7 +9,7 @@
    -------------------------------------------------------------------------- */
 const CONFIG = {
   // Formulaire principal : demande d'estimation (utilisé partout par défaut).
-  tallyFormId: "",
+  tallyFormId: "q40ppO",
   // Formulaires optionnels. Laissés vides, ils retombent sur le formulaire principal.
   forms: {
     acquisition: "", // page /acquerir
@@ -82,7 +82,6 @@ function mountTally(slot) {
   const iframe = document.createElement("iframe");
   iframe.dataset.tallySrc = tallyUrl(formId, slot.dataset.source);
   iframe.title = "Formulaire de demande d’estimation";
-  iframe.loading = "lazy";
   iframe.width = "100%";
   iframe.height = "560"; // hauteur réservée (évite le saut de mise en page)
   iframe.setAttribute("frameborder", "0");
