@@ -1,0 +1,21 @@
+  <!-- Consentement Google (CNIL) : tout est refusé tant que le visiteur n'a pas accepté
+       dans le bandeau. Le choix est relu ici avant le chargement de la balise. -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    (function () {
+      var c; try { c = JSON.parse(localStorage.getItem("consent")); } catch (e) {}
+      var s = c && c.v === "granted" && Date.now() < c.exp ? "granted" : "denied";
+      gtag("consent", "default", { ad_storage: s, ad_user_data: s, ad_personalization: s, analytics_storage: s });
+      gtag("set", "ads_data_redaction", s === "denied");
+    })();
+  </script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18503417665"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-18503417665');
+  </script>

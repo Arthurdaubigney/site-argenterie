@@ -341,5 +341,41 @@ document.querySelectorAll("[data-dropdown]").forEach((wrap) => {
   wrap.addEventListener("focusout", (e) => !wrap.contains(e.relatedTarget) && set(false));
 });
 
+/* --------------------------------------------------------------------------
+   6. Consentement cookies (Google Ads, mode consentement)
+   -------------------------------------------------------------------------- */
+// Choix gardé 13 mois s'il est accepté, 6 mois s'il est refusé (recommandations CNIL).
+const consentBanner = document.querySelector("[data-consent]");
+function readConsent() {
+  try {
+    const c = JSON.parse(localStorage.getItem("consent"));
+    return c && Date.now() < c.exp ? c.v : null;
+  } catch {
+    return null;
+  }
+}
+function setConsent(v) {
+  const days = v === "granted" ? 395 : 182;
+  try {
+    localStorage.setItem("consent", JSON.stringify({ v, exp: Date.now() + days * 864e5 }));
+  } catch {}
+  window.gtag?.("consent", "update", { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
+  window.gtag?.("set", "ads_data_redaction", v === "denied");
+  consentBanner.hidden = true;
+}
+if (consentBanner) {
+  if (!readConsent()) consentBanner.hidden = false;
+  consentBanner.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-consent-choice]");
+    if (b) setConsent(b.dataset.consentChoice);
+  });
+  document.querySelectorAll("[data-consent-open]").forEach((b) =>
+    b.addEventListener("click", () => {
+      consentBanner.hidden = false;
+      consentBanner.querySelector("button")?.focus();
+    })
+  );
+}
+
 /* Année du pied de page */
 document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
