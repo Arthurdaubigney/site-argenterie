@@ -208,6 +208,20 @@
   }
   .btn-ghost:hover { background-size: 100% 1px; }
 
+  /* Boutons du bandeau cookies : deux choix de poids égal */
+  .consent-btn {
+    min-height: 2.75rem;
+    padding: 0 1rem;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-ui);
+    color: var(--ink);
+    font-weight: 500;
+    font-size: 0.925rem;
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-smooth-out), color var(--duration-fast) var(--ease-smooth-out);
+  }
+  .consent-btn:hover { background: var(--ink); color: var(--bg); }
+
   /* Flèche des CTA : glisse au survol (learn-more hover, simplifié) */
   .cta-arrow { transition: transform var(--duration-fast) var(--ease-smooth-out); }
   .btn-primary:hover .cta-arrow,
@@ -410,6 +424,8 @@ dialog.modal-root::backdrop { background: transparent; }
   transition: transform var(--duration-medium) var(--ease-smooth-out);
 }
 .sticky-cta.is-visible { transform: translateY(0); }
+.cookie-banner:not([hidden]) { animation: consent-in var(--duration-medium) var(--ease-smooth-out); }
+@keyframes consent-in { from { opacity: 0; transform: translateY(12px); } }
 
 /* En-tête : toujours opaque (le texte ne transparaît jamais dessous).
    Au défilement, seuls un filet et une ombre légère apparaissent. */
