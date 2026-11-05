@@ -61,7 +61,7 @@ Ces pièces illustrent le savoir-faire des orfèvres ; elles ne font pas partie 
 
 ## À personnaliser
 
-- `src/data/site.json` : nom de la marque (« Maison Argenterie »), domaine (maison-argenterie.fr). `legalEmail` n’est affiché que dans les mentions légales.
+- `src/data/site.json` : nom de la marque (« Maison Argenterie »), domaine (www.maison-argenterie.fr). `legalEmail` n’est affiché que dans les mentions légales.
 - Mentions légales et politique de confidentialité (champs entre crochets).
 
 ## Règle éditoriale
